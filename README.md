@@ -2,12 +2,12 @@
 A complete cluster running Apache Mesos, Marathon, Mesos DNS, Chronos, Docker and Ansible.
 
 
-# Preconditions
+## Preconditions
 
-## Vagrant
+### Vagrant
 - **vagrant-hostsupdater** plugin, to be able to map names to ip addresses. For more info about this plugin, take a look [here](https://github.com/cogitatio/vagrant-hostsupdater).
 
-## SSH keys used
+## SSH access to VMs
 
 This two sections of the Vagrantfile add your public key to the list of root authorized_keys on the VMs. After you do a vagrant up, you can test with vagrant root@mesos-master. 
 
@@ -23,7 +23,7 @@ require_relative './vagrant/key_authorization'
 authorize_key_for_root config, '~/.ssh/id_dsa.pub', '~/.ssh/id_rsa.pub'
 ```
     
-# It's not fun unless you run it
+## It's not fun unless you run it
 
 ```
 vagrant up
