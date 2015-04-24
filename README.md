@@ -19,7 +19,7 @@ require_relative './vagrant/key_authorization'
 
 2) Add the id_dsa.pub or id_rsa.pub key to the root authorized keys on the remote machines. From [here](https://gist.githubusercontent.com/maxim/dafc3b6da5754419babb/raw/7789793ed7e799dc22e)
 
-```
+```ruby
 authorize_key_for_root config, '~/.ssh/id_dsa.pub', '~/.ssh/id_rsa.pub'
 ```
     
