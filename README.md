@@ -13,14 +13,15 @@ This two sections of the Vagrantfile add your public key to the list of root aut
 
 1) Load the key_authorization.rb file
 
-    ```ruby
-    require_relative './vagrant/key_authorization'
-    ```
+```ruby
+require_relative './vagrant/key_authorization'
+```
+
 2) Add the id_dsa.pub or id_rsa.pub key to the root authorized keys on the remote machines. From [here](https://gist.githubusercontent.com/maxim/dafc3b6da5754419babb/raw/7789793ed7e799dc22e)
 
-    ```ruby
-    authorize_key_for_root config, '~/.ssh/id_dsa.pub', '~/.ssh/id_rsa.pub'
-    ```
+```
+authorize_key_for_root config, '~/.ssh/id_dsa.pub', '~/.ssh/id_rsa.pub'
+```
     
 # It's not fun unless you run it
 
