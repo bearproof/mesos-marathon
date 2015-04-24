@@ -28,3 +28,6 @@ authorize_key_for_root config, '~/.ssh/id_dsa.pub', '~/.ssh/id_rsa.pub'
 ```
 vagrant up
 ```
+
+### About
+This project uses the Gitflow model. For more info on Gitflow, take a look [here](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
