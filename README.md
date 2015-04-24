@@ -9,7 +9,7 @@ A complete cluster running Apache Mesos, Marathon, Mesos DNS, Chronos, Docker an
 
 ## SSH access to VMs
 
-This two sections of the Vagrantfile add your public key to the list of root authorized_keys on the VMs. After you do a vagrant up, you can test with vagrant root@mesos-master. 
+This two sections of the Vagrantfile add your public key to the list of root authorized_keys on the VMs. After you do a vagrant up, you can test this with `ssh root@mesos-master`. 
 
 1) Load the key_authorization.rb file
 
