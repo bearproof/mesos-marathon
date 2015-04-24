@@ -1,0 +1,6 @@
+[mesos-masters]
+mesos-master ansible_ssh_host=mesos-master
+
+[mesos-slaves]
+mesos-slave1 ansible_ssh_host=mesos-slave1
+mesos-slave2 ansible_ssh_host=mesos-slave2

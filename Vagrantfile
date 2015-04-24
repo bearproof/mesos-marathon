@@ -18,5 +18,11 @@ Vagrant.configure('2') do |config|
       host.vm.network 'private_network', ip: ip
       host.vm.hostname = "#{short_name}"
     end
+    config.vm.provision "ansible" do |ansible|
+      ansible.playbook = "playbook.yml"
+      ansible.host_key_checking = false
+      ansible.inventory_path = "inventory"
+      ansible.extra_vars = { ansible_ssh_user: 'root', ansible_ssh_private_key_file: '~/.ssh/id_rsa'}
+    end
   end
 end
