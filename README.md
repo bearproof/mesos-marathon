@@ -5,7 +5,7 @@ A complete cluster running Apache Mesos, Marathon, Mesos DNS, Chronos, Docker an
 # Preconditions
 
 ## Vagrant
-- vagrant-hostsupdater plugin, to be able to map names to ip addresses. For more info about this plugin, take a look [here](https://github.com/cogitatio/vagrant-hostsupdater).
+- **vagrant-hostsupdater** plugin, to be able to map names to ip addresses. For more info about this plugin, take a look [here](https://github.com/cogitatio/vagrant-hostsupdater).
 
 ## SSH keys used
 
@@ -25,3 +25,6 @@ authorize_key_for_root config, '~/.ssh/id_dsa.pub', '~/.ssh/id_rsa.pub'
     
 # It's not fun unless you run it
 
+```
+vagrant up
+```
