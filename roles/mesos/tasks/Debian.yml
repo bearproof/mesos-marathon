@@ -1,0 +1,19 @@
+---
+
+# Setup the apt-key
+- name: Setup the apt-key
+  apt_key: keyserver=keyserver.ubuntu.com id=E56151BF
+
+- name: Add the mesosphere repository
+  apt_repository: repo='deb http://repos.mesosphere.io/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} main' state=present update_cache=yes
+
+- name: Install mesos
+  apt: name=mesos state=present
+
+- name: Start the mesos master and mesos slave service
+  service: name={{ item }} state=started enabled=yes
+  with_items:
+    - mesos-master
+    - mesos-slave
+
+

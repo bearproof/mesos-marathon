@@ -38,4 +38,4 @@
   notify: Restart zookeeper-server
 
 - name: Make sure the zookeeper-server is started
-  service: name=zookeeper-server state=started
+  service: name=zookeeper-server state=started enabled=yes
