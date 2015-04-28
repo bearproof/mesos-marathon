@@ -1,5 +1,5 @@
 [mesos-masters]
-mesos-master ansible_ssh_host=mesos-master
+mesos-master ansible_ssh_host=mesos-master zookeeper_myid=1
 
 [mesos-slaves]
 mesos-slave1 ansible_ssh_host=mesos-slave1

@@ -1,0 +1,41 @@
+---
+
+- name: Check if the Cloudera repository is installed
+  command: dpkg-query -W cdh5-repository
+  register: cdh5_repository_check_deb
+  failed_when: cdh5_repository_check_deb.rc > 1
+  changed_when: cdh5_repository_check_deb.rc == 1
+
+- name: Download The Cloudera repository
+  get_url:
+    url="http://archive.cloudera.com/cdh5/one-click-install/{{ansible_distribution_release}}/amd64/cdh5-repository_1.0_all.deb"
+    dest="/tmp/cdh5-repository_1.0_all.deb"
+  when: cdh5_repository_check_deb.rc == 1
+
+- name: Install the Cloudera repository
+  apt: deb="/tmp/cdh5-repository_1.0_all.deb"
+  when: cdh5_repository_check_deb.rc == 1
+
+# TODO: refactor this after adding support for another platform
+- name: Apt install openjdk7 and zookeeper-server
+  apt: pkg={{item}} state=installed update_cache=yes
+  with_items:
+    - openjdk-7-jdk
+    - zookeeper-server
+
+- name: Create zookeeper data folder.
+  file: path={{zookeeper_data}} state=directory recurse=yes owner=zookeeper group=zookeeper
+
+- name: Create zookeeper logs folder.
+  file: path={{zookeeper_logs}} state=directory recurse=yes owner=zookeeper group=zookeeper
+
+- name: Configure zookeeper
+  template: src=zoo.cfg.j2 dest=/etc/zookeeper/conf/zoo.cfg
+  notify: Restart zookeeper-server
+
+- name: Initialize zookeeper instance
+  shell: creates=/var/lib/zookeeper/myid service zookeeper-server init --myid={{ zookeeper_myid }}
+  notify: Restart zookeeper-server
+
+- name: Make sure the zookeeper-server is started
+  service: name=zookeeper-server state=started

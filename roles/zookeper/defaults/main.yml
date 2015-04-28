@@ -1,0 +1,5 @@
+---
+zookeeper_version: 3.4.6
+zookeeper_dir: /etc/zookeeper
+zookeeper_data: /var/lib/zookeeper
+zookeeper_logs: /var/log/zookeeper
