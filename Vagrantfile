@@ -6,7 +6,7 @@ unless Vagrant.has_plugin?("vagrant-hostsupdater")
 end
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'chef/centos-7.0'
+  config.vm.box = 'chef/debian-7.4'
   authorize_key_for_root config, '~/.ssh/id_dsa.pub', '~/.ssh/id_rsa.pub'
 
   {
@@ -17,12 +17,12 @@ Vagrant.configure('2') do |config|
     config.vm.define short_name do |host|
       host.vm.network 'private_network', ip: ip
       host.vm.hostname = "#{short_name}"
-    end
     config.vm.provision "ansible" do |ansible|
       ansible.playbook = "playbook.yml"
       ansible.host_key_checking = false
       ansible.inventory_path = "inventory"
       ansible.extra_vars = { ansible_ssh_user: 'root', ansible_ssh_private_key_file: '~/.ssh/id_rsa'}
+      end
     end
   end
 end
