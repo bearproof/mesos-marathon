@@ -11,6 +11,8 @@ Vagrant.configure('2') do |config|
 
   {
       'mesos-master'    => '192.168.33.11',
+      'mesos-master2'   => '192.168.33.14',
+      'mesos-master3'   => '192.168.33.15',
       'mesos-slave1'    => '192.168.33.12',
       'mesos-slave2'    => '192.168.33.13',
   }.each do |short_name, ip|

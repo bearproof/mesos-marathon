@@ -1,0 +1,8 @@
+---
+### Mesos Master options
+mesos_zk: "zk://mesos-master:2181,mesos-master2:2181,mesos-master3:2181/mesos"
+
+mesos_options_master:
+  cluster: my_test_cluster
+  work_dir: /var/lib/mesos
+  quorum: 2

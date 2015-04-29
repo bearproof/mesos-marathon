@@ -1,5 +1,7 @@
 ---
 
+## Mesos installation
+
 # Setup the apt-key
 - name: Setup the apt-key
   apt_key: keyserver=keyserver.ubuntu.com id=E56151BF
@@ -10,10 +12,51 @@
 - name: Install mesos
   apt: name=mesos state=present
 
-- name: Start the mesos master and mesos slave service
-  service: name={{ item }} state=started enabled=yes
-  with_items:
-    - mesos-master
-    - mesos-slave
+- name: Set mesos zookeeper config
+  template: src=mesos.zk.j2 dest=/etc/mesos/zk
+
+- name: Mesos configuration file
+  template: src=mesos.j2 dest=/etc/default/mesos
+
+## Configure mesos master
+
+- name: Set mesos master options
+  copy: content={{item.value}} dest=/etc/mesos-master/{{item.key}}
+  with_dict: mesos_options_master | default({}) # with_dict needs explicit default
+  notify: Restart mesos-master
+  when: mesos_mode is defined and mesos_mode == "mesos_master"
+
+- name: Start the mesos master
+  service: name=mesos-master state=started enabled=yes
+  when: mesos_mode is defined and mesos_mode == "mesos_master"
+
+- name: Stop mesos-slave when node is not set as slave
+  service: name=mesos-slave state=stopped enabled=no sleep=5
+  when: mesos_mode is not defined or mesos_mode != "mesos_slave"
+
+- name: Install Chronos
+  apt: pkg=chronos state=installed
+  when: mesos_mode is defined and mesos_mode == "mesos_master"
+
+- name: Start Chronos
+  service: name=chronos state=started
+  when: mesos_mode is defined and mesos_mode == "mesos_master"
+
+## Start up mesos master or slave
+
+- name: Set mesos slave options
+  copy: content={{item.value}} dest=/etc/mesos-slave/{{item.key}}
+  with_dict: mesos_options_slave | default({}) # with_dict needs explicit default
+  notify: Restart mesos-slave
+  when: mesos_mode is defined and mesos_mode == "mesos_slave"
+
+- name: Stop mesos-master when node is not set as master
+  service: name=mesos-master state=stopped enabled=no sleep=5
+  when: mesos_mode is not defined or mesos_mode != "mesos_master"
+
+- name: Start the mesos slave
+  service: name=mesos-slave state=started enabled=yes
+  when: mesos_mode is defined and mesos_mode == "mesos_slave"
+
 
 

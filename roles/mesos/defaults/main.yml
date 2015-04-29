@@ -1,0 +1,7 @@
+---
+
+mesos_ip: 127.0.0.1
+mesos_log_dir: "/var/log/mesos"
+mesos_ulimit: "-n 8192"
+mesos_zk: "zk://localhost:2181/mesos" # search local by default
+mesos_masters: "{{mesos_zk}}" # search local by default

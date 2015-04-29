@@ -1,6 +1,12 @@
 [mesos-masters]
-mesos-master ansible_ssh_host=mesos-master zookeeper_myid=1
+mesos-master ansible_ssh_host=mesos-master zookeeper_myid=1 mesos_ip=192.168.33.11
+mesos-master2 ansible_ssh_host=mesos-master2 zookeeper_myid=2 mesos_ip=192.168.33.14
+mesos-master3 ansible_ssh_host=mesos-master3 zookeeper_myid=3 mesos_ip=192.168.33.15
 
 [mesos-slaves]
 mesos-slave1 ansible_ssh_host=mesos-slave1
 mesos-slave2 ansible_ssh_host=mesos-slave2
+
+[generic:children]
+mesos-masters
+mesos-slaves
