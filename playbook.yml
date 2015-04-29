@@ -5,8 +5,10 @@
     - { role: common}
     - { role: zookeper, zookeeper_servers: '{{ groups["mesos-masters"] }}'}
     - { role: mesos}
+    - { role: marathon}
 
 - hosts: mesos-slaves
   roles:
     - { role: common}
     - { role: mesos}
+
